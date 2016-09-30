@@ -1,1 +1,5 @@
 .stack-work
+*.dyn_o
+*.dyn_hi
+*.o
+*.hi
