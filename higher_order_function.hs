@@ -29,10 +29,16 @@ map' f (x:xs) = f x : map' f xs-}
 map' f xs = foldr (\x acc -> f x : acc) [] xs
 
 filter' :: (a -> Bool) -> [a] -> [a]
+{-
 filter' _ [] = []
 filter' p (x:xs)
     | p x = x : filter' p xs
     | otherwise = filter' p xs
+-}
+filter' p = foldr(\x acc -> if p x then x:acc else acc) []
+
+last' :: [a] -> a
+last' = foldl1(\_ x -> x) 
 
 quicksort :: (Ord a) => [a] -> [a]
 quicksort [] = []
@@ -74,5 +80,20 @@ reverse' = foldr (\x acc -> acc ++ [x]) []
 
 product' :: (Num a) => [a] -> a
 product' = foldl (*) 1
+
+and' :: [Bool] -> Bool
+and' xs = foldr (&&) True xs
+
+sqrtSum :: Int
+sqrtSum = length (takeWhile (<1000) (scanl1 (+) (map sqrt [1..]))) + 1
+
+test :: [Int]
+test = replicate 2 . product . map (*3) $ zipWith max [1,2][4,5]
+
+fn :: (Floating a, Integral c, RealFrac a) => a -> c
+fn = ceiling . negate . tan . cos . max 50
+
+oddSquareSum :: Integer
+oddSquareSum = sum . takeWhile (<10000) . filter odd $ map (^2) [1..]
 
 
