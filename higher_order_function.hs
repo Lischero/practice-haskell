@@ -61,3 +61,18 @@ sum' :: (Num a) => [a] -> a
 {-sum' xs = foldl(\acc x -> acc + x) 0 xs-}
 sum' = foldl (+) 0
 
+elem' :: (Eq a) =>  a -> [a] -> Bool
+elem' y ys = foldr(\x acc -> if x == y then True else acc) False ys
+
+maximum' :: (Ord a) => [a] -> a
+maximum' = foldl1 max
+
+reverse' :: [a] -> [a]
+reverse' = foldr (\x acc -> acc ++ [x]) []
+--reverse' = foldl (\acc x -> x : acc) []
+--reverse' = foldl (flip (:)) [] -- filp(:) :: [a] -> a -> [a]
+
+product' :: (Num a) => [a] -> a
+product' = foldl (*) 1
+
+
