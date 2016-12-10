@@ -1,5 +1,6 @@
 import Data.List
 import Data.Char
+import qualified Data.Map as Map
 
 numUniques :: (Eq a) => [a] -> Int
 numUniques = length . nub
@@ -23,3 +24,28 @@ digitSum = sum . map digitToInt . show
 
 firstTo :: Int -> Maybe Int
 firstTo n = find (\x -> digitSum x == n)[1..]
+
+{--
+findkey :: (Eq k) => k -> [(k,v)] -> v
+findkey key  = snd . head . filter (\(x,y) -> key == x)
+--}
+
+--fix error Versions
+--recursion Ver
+{--
+findkey :: (Eq k) -> k -> [(k,v)] -> Maybe v
+findkey key [] = Nothing
+findkey key [(x,y):xs]
+    | key == x = Just y
+    | otherwise findkey key xs
+--}
+
+--foldr Ver
+findkey :: (Eq k) => k -> [(k,v)] -> Maybe v
+findkey key xs = foldr (\(x,y) acc -> if key == x then Just y else acc ) Nothing xs
+
+--数字文字列をリストへ変換するやつ。
+string2digit :: String -> [Int]
+string2digit =  map digitToInt . filter isDigit
+
+
