@@ -48,4 +48,11 @@ findkey key xs = foldr (\(x,y) acc -> if key == x then Just y else acc ) Nothing
 string2digit :: String -> [Int]
 string2digit =  map digitToInt . filter isDigit
 
+--fromListWithで重複要素があった際の要素連結関数add
+--phonebookToMap :: (Ord k) => [(k,String)] -> Map.Map k String
+--phonebookToMap xs = Map.fromListWith add xs
+--    where add number1 number2 = number1 ++ "," ++ number2
+
+phonebookToMap :: (Ord k) => [(k,a)] -> Map.Map k [a]
+phonebookToMap xs = Map.fromListWith (++) $ map (\(k,a) -> (k, [a])) xs
 
